@@ -44,11 +44,11 @@ Task Division
 
 	{Front-End}
 	Albert, Jason
-	-> Splashscreen design
-	-> Initial setup wizard design
+	-> Splashscreen design (completed-AL)
+	-> Initial setup wizard design (completed-AL)
 	-> Main UI
 	-> Configuration page design
-	-> Camera configuration design
+	-> Camera/audio configuration design
 	-> Keybind programmer design
 	-> Behavior programmer design
 	
