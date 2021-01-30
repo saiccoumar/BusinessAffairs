@@ -48,9 +48,11 @@ Task Division
 	C-> Initial setup wizard design (completed-AL)
 	C-> Main UI (completed-AL)
 	C-> Configuration page design (completed-AL)
-	-> Camera/audio configuration design
-	-> Keybind programmer design
-	?-> Behavior programmer design
+	C-> Camera/audio configuration design (completed-AL)
+	C-> Keybind programmer design (completed-AL)
+	X-> Behavior programmer design (cancelled)
+	-> HTML programming for all pages
+	-> CSS design framework
 	
 	{Back-End}
 	Trager, Sai
