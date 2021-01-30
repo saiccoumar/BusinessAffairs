@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Configuration</title>
+        
+        <!-- WINDOW SIZE: 900x800 -->
+        
+        <link rel="stylesheet" href="../static/style.css">
+        <link rel="stylesheet" href="../static/config.css">
+        <link rel="stylesheet" href="../static/fontello.css">
+    </head>
+    <body>
+        <div class="row">
+            <div class="col centerBox tablink active" id="default" onClick="opener('av',this)">
+                <span><i class="demo-icon icon-videocam"></i> Audio/Video</span>
+            </div>
+            <div class="col centerBox tablink" onClick="opener('behaviors',this)">
+                <span><i class="demo-icon icon-tasks"></i> Behaviors</span>
+            </div>
+            <div class="col centerBox tablink" onClick="opener('keybinds',this)">
+                <span><i class="demo-icon icon-keyboard"></i> Keybinds</span>
+            </div>
+        </div>
+        
+        <form id="configSave"> <!-- Form action to be completed here to send into Python -->
+            <div id="av" class="tabcontent">
+                <div class="content">
+                    <div class="centerBox">
+                        <img src="../static/webcam_sample.jpg" class="camera" alt="Webcam viewer">
+                    </div>
+
+                    <span class="title">Video Input</span>
+                    <br>
+                    <select class="formElem" id="videoInput" name="videoInput">
+                        <option value="0">0: Logitech HD Webcam 520</option>
+                        <option value="1">1: EasyCam</option>
+                        <option value="2">2: nameless</option>
+                        <option value="3">3: OBS Virtual Camera</option>
+                    </select>
+
+                    <hr class="softLine">
+
+                    <span class="title">Audio Input</span>
+                    <br>
+                    <select class="formElem" id="audioInput" name="audioInput">
+                        <option value="0">0: Razer Kraken - Synapse</option>
+                        <option value="1">1: Logitech HD Webcam 520</option>
+                        <option value="2">2: Realtek Audio Driver</option>
+                    </select>
+                    <!-- Potentially add volume meter -->
+                </div>
+            </div>
+
+            <div id="behaviors" class="tabcontent">
+                <div class="content">
+                    <p class="desc">When I sense danger from your camera or microphone, I will run the following actions for you.</p>
+                    <input type="checkbox" id="min" name="min" value="min"><label for="min"> Minimize all windows</label><br>
+                    <input type="checkbox" id="desktop" name="desktop" value="desktop"><label for="desktop"> Create new desktop</label><br>
+                    <input type="checkbox" id="mute" name="mute" value="mute"><label for="mute"> Mute all audio outputs</label><br>
+                    <input type="checkbox" id="black" name="black" value="black"><label for="black"> Blackout monitors</label><br>
+                    <input type="checkbox" id="custom" name="custom" value="custom"><label for="custom"> Run custom executable</label>
+                </div>
+            </div>
+
+            <div id="keybinds" class="tabcontent">
+                <div class="content">
+                    <div class="row">
+                        <div class="col">
+                            <label for="monitor" class="keyLabel">Turn on/off monitoring</label>
+                        </div>
+                        <div class="col">
+                            <input type="text" id="monitor" name="monitor" value="Ctrl + Shift + B" class="keyElem">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="open" class="keyLabel">Open BusinessAffair</label>
+                        </div>
+                        <div class="col">
+                            <input type="text" id="open" name="open" value="Ctrl + Shift + B" class="keyElem">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="end" class="keyLabel">Terminate emergency</label>
+                        </div>
+                        <div class="col">
+                            <input type="text" id="end" name="end" value="Ctrl + Shift + B" class="keyElem">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <a href="javascript:{}" onclick="document.getElementById('configSave').submit();" class="btn">Save and Return</a>
+            </div>
+        </form>
+        
+        <script src="config.js"></script>
+    </body>
+</html>
