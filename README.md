@@ -9,4 +9,4 @@ Project is the cumulative effort of the following team members over the weekend 
 * Jason Leong
 * Sai Coumar
 
-![BusinessAffairs Logo](https://github.com/saiccoumar/BusinessAffairs/blob/master/artAssets/Splashscreen.png)
+![BusinessAffairs Logo](https://github.com/saiccoumar/BusinessAffairs/blob/master/web_prototype/art/Splashscreen.png?raw=true)
