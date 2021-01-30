@@ -22,11 +22,10 @@ Focus: An application that will help hide sensitive desktop information upon det
 	
 [#Behaviors] - emergency events triggered by #Trigger
 - Minimize all windows
-- Minimize all windows, create new desktop (?)
-- Minimize all windows, create new desktop, open defined application (?)
-- Mute all audio output (attention: multiple audio outputs are possible)
-- Blackout monitors
-- Custom user-programmed routine (somehow...?)
+- Create new desktop
+- Mute all audio outputs (there can be multiple audio devices, pay attention!)
+- Blackout monitors (careful, don't break monitors/make computer inaccessible)
+- Run custom executable
 
 [#Config]
 - Minimize to system tray on start
