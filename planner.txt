@@ -12,6 +12,7 @@ Focus: An application that will help hide sensitive desktop information upon det
 	-> (proceed to normal run)
 -> Normal run
 	-> Follow config (see #Config)
+	-> Continuously monitor in background
 	-> Run discretely in background, minimal resource usage
 -> Exit (cleanly exit)
 
