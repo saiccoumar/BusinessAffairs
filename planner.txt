@@ -5,7 +5,7 @@ Focus: An application that will help hide sensitive desktop information upon det
 --------------------
 
 [#Flow]
--> Splashscreen (?)
+-> Splashscreen (?).
 -> Initial run
 	-> Prompt user which is the desired camera and microphone input
 	-> Prompt user on keybinds for functions (see #Keybinds)
