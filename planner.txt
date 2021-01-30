@@ -1,0 +1,59 @@
+BusinessAffairs
+
+Focus: An application that will help hide sensitive desktop information upon detection of human presence in a given camera viewpoint.
+
+--------------------
+
+[#Flow]
+-> Splashscreen (?)
+-> Initial run
+	-> Prompt user which is the desired camera and microphone input
+	-> Prompt user on keybinds for functions (see #Keybinds)
+	-> (proceed to normal run)
+-> Normal run
+	-> Follow config (see #Config)
+	-> Run discretely in background, minimal resource usage
+-> Exit (cleanly exit)
+
+[#Triggers] - results in #Behaviors run
+- Detected movement in camera
+- Detected aural movement, spikes, or presence
+	
+[#Behaviors] - emergency events triggered by #Trigger
+- Minimize all windows
+- Minimize all windows, create new desktop (?)
+- Minimize all windows, create new desktop, open defined application (?)
+- Mute all audio output (attention: multiple audio outputs are possible)
+- Blackout monitors
+- Custom user-programmed routine (somehow...?)
+
+[#Config]
+- Minimize to system tray on start
+- Run on system startup
+- Behaviors (see #Behaviors)
+	
+[#Keybinds] - MAKE SURE TO NOT INTERFERE WITH OTHER APPLICATIONS
+(Ctrl + Shift + B) Enable/Disable detection (critical -> when disabled, do not use the camera to save system resources?)
+(Ctrl + Shift + Alt + B) Bring back application window
+(Ctrl + Shift + Alt + R) End emergency, false alert declaration
+
+--------------------
+
+Task Division
+
+	{Front-End}
+	Albert, Jason
+	-> Splashscreen design
+	-> Initial setup wizard design
+	-> Main UI
+	-> Configuration page design
+	-> Camera configuration design
+	-> Keybind programmer design
+	-> Behavior programmer design
+	
+	{Back-End}
+	Trager, Sai
+	-> Python functionality
+	-> Behavior programming
+	-> Keybind programming
+	-> AI training/camera detection of humans in camera viewpoint
