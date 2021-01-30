@@ -1,0 +1,29 @@
+/* Styles Apply for index.html */
+
+.main {
+    padding-top: 60px;
+}
+.title {
+    font-size: 50px;
+    font-family: Roboto-Bold;
+    letter-spacing: 3px;
+}
+.title-l {
+    color: #214D78;
+}
+.title-r {
+    color: #A8822A;
+}
+
+.logo {
+    margin-top: -25px;
+    height: 380px;
+}
+
+.content {
+    margin: 0px 120px 0px 120px;
+}
+.alert {
+    width: 400px;
+    
+}
