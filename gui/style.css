@@ -9,6 +9,7 @@
 }
 body {
     font-family: Roboto;
+    letter-spacing: 0.75px;
 }
 
 /* Grid */
@@ -29,22 +30,65 @@ body {
     flex-basis: 100%;
     flex: 1;
 }
-.col-l {
-    padding-right: 10px;
+.pr {
+    padding-right: 20px;
 }
-.col-r {
-    padding-left: 10px;
+.pl {
+    padding-left: 20px;
 }
-
-/* Images */
-.img-resp {
-    width: 100%;
+.pb {
+    padding-bottom: 40px
+}
+.center {
+    align-items: center;
+    justify-content: center;
+}
+.centerBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Button */
-btn {
+.btn {
     border-radius: 10px;
+    background-color: #214D78;
+    color: #fff;
+    padding: 10px 20px;
+    
+    -o-transition: .5s;
+	-ms-transition: .5s;
+	-moz-transition: .5s;
+	-webkit-transition: .5s;
+	transition: .5s;
 }
+.btn:hover {
+    background-color: #A8822A;
+    text-decoration: none;
+}
+
+/* Form Design */
+.formElem {
+    border-radius: 10px;
+    font-size: 18px;
+    height: 35px;
+    width: 100%;
+    padding-left: 30px;
+    margin: 10px 0px 20px 0px;
+}
+
+/* Misc */
+.softLine {
+    background-color: #DCDCDC;
+    border: none;
+    height: 1px;
+}
+a {
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+}
+
 
 /*
 Fonts to consider:
