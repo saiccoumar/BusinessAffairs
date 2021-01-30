@@ -25,4 +25,11 @@ def landing():
     """
     return render_template('index.html')
 
+@server.route('/test')
+def render():
+    bruh = "yesyesyesyes"
+    # webview.create_window('My second pywebview application', server)
+    return render_template('index.html',value = bruh)
+
+
 
