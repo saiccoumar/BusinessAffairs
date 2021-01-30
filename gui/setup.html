@@ -3,7 +3,7 @@
     <head>
         <title>Setup</title>
         
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="../statics/style.css">
         <style>
             .emph {
                 font-size: 25px;
@@ -18,29 +18,59 @@
                 padding-bottom: 50px;
                 font-family: Roboto-Bold;
             }
+            .camera {
+                max-width: 100%;
+                max-height: 270px;
+            }
+            .softLine {
+                margin-bottom: 20px;
+            }
+            
+            .splitter {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+            }
         </style>
     </head>
     <body>
         <div class="cont">
-            <form> <!-- Form action to be completed here to send into Python -->
+            <form id="initSave"> <!-- Form action to be completed here to send into Python -->
                 
-                <span class="emph">Welcome.</span> <span class="sub">Let's setup your video and audio inputs.</span>
+                <div class="splitter">
+                    <span><span class="emph">Welcome.</span> <span class="sub">Let's setup your video and audio inputs.</span></span>
+                    <a href="javascript:{}" onclick="document.getElementById('initSave').submit();" class="btn">Save and Start</a>
+                </div>
+                
+                <div class="pb"></div>
                 
                 <div class="row">
                     <div class="col">
-                        <div class="col-l">
-                            <img src="webcam_sample.jpg" class="img-resp" alt="Webcam Sample Image">
+                        <div class="pr centerBox">
+                            <img src="../statics/webcam_sample.jpg" class="camera" alt="Webcam Sample Image">
                         </div>
                     </div>
                     <div class="col">
-                        <div class="col-r">
+                        <div class="pl">
                             <span class="title">Video Input</span>
                             <br>
-                            Test
-                            <hr>
+                            <select class="formElem" id="videoInput" name="videoInput">
+                                <option value="0">0: Logitech HD Webcam 520</option>
+                                <option value="1">1: EasyCam</option>
+                                <option value="2">2: nameless</option>
+                                <option value="3">3: OBS Virtual Camera</option>
+                            </select>
+                            
+                            <hr class="softLine">
+                            
                             <span class="title">Audio Input</span>
                             <br>
-                            Test
+                            <select class="formElem" id="audioInput" name="audioInput">
+                                <option value="0">0: Razer Kraken - Synapse</option>
+                                <option value="1">1: Logitech HD Webcam 520</option>
+                                <option value="2">2: Realtek Audio Driver</option>
+                            </select>
+                            <!-- Potentially add volume meter -->
                         </div>
                     </div>
                 </div>

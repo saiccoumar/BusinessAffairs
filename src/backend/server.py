@@ -18,10 +18,13 @@ bashSleep = "osascript src/backend/scripts/scriptSleep.scpt"
 bashDesktop = "osascript src/backend/scripts/scriptNewDesktop.scpt"
 gui_dir = os.path.join(os.path.dirname(__file__), '..', '..', 'gui')  # development path
 
-if not os.path.exists(gui_dir):  # frozen executable path
-    gui_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'gui')
+# if not os.path.exists(gui_dir):  # frozen executable path
+#     gui_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'gui')
 
-server = Flask(__name__, static_folder=gui_dir, template_folder=gui_dir)
+path = os.path.dirname(__file__)
+dir = path[0:len(path)-11]
+
+server = Flask(__name__, static_folder=dir + '/statics', template_folder=dir+'/gui')
 server.config['SEND_FILE_MAX_AGE_DEFAULT'] = 1  # disable caching
 # can write more functions for different functionality.
 def minimizeWindows():
@@ -51,8 +54,10 @@ def landing():
 @server.route('/test')
 def test():
     bruh = "yesyesyes"
+    # mute()
+    bruh = gui_dir
     # webview.create_window('My second pywebview application', server)
-    return render_template('index.html',value = bruh)
+    return render_template('setup.html',value = bruh)
 
 @server.route('/video')
 def scanVideo():
