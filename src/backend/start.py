@@ -4,7 +4,27 @@ import threading
 import time
 import sys
 import random
+import pyaudio
+import cv2
 
+# get audio and video 
+p = pyaudio.PyAudio()
+for i in range(p.get_device_count()):
+    print (p.get_device_info_by_index(i).get('name'))
+    print (p.get_default_input_device_info())
+p.terminate()
+
+index = 0
+arr = []
+while True:
+    cap = cv2.VideoCapture(index)
+    if not cap.read()[0]:
+        break
+    else:
+        arr.append(index)
+    cap.release()
+    index += 1
+print(arr)
 """
 An example of serverless app architecture
 """
@@ -144,7 +164,7 @@ class Api():
         category_index = label_map_util.create_category_index_from_labelmap(PATH_TO_LABELS,
                                                                             use_display_name=True)
         
-        import cv2
+        
         
         cap = cv2.VideoCapture(0)
         print("wall street bets")
