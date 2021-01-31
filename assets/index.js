@@ -1,6 +1,5 @@
 var power = false;
-
-document.getElementById('power').click();
+var configOpen = false;
 
 function updateRunning() {
     // Remove existing status colors
@@ -9,7 +8,7 @@ function updateRunning() {
 
     // Update running status in Python
     pywebview.api.updateRunning(!power);
-    
+
     // Start detecting process in Python
     pywebview.api.detecting();
 
@@ -30,4 +29,8 @@ function updateRunning() {
         document.getElementById('power').classList.add('monitorOff');
         document.getElementById('logo').src="logo_sleep.svg";
     }
+}
+
+function openConfig() {
+    pywebview.api.configWindow();
 }

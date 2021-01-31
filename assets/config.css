@@ -1,5 +1,9 @@
 /* Styles Apply for config.html */
 
+body {
+    background-color: #fafafa;
+}
+
 .tablink {
     font-family: Roboto;
     color: #B9B9B9;

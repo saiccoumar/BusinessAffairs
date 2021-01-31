@@ -209,11 +209,13 @@ class Api():
     #     cv2.destroyAllWindows()
     #     listener.stop()    
 
+    # Detecting process
     def detecting(self):
         while running:
             print("DETECTING GOING ON")
             time.sleep(5)
 
+    # Updates global running variable for detector
     def updateRunning(self, value):
         global running
         if not value:
@@ -222,10 +224,15 @@ class Api():
             running = True
         print(running)
 
+    # Configuration window
+    def configWindow(yes):
+        print("Yes")
+        configWindow = webview.create_window('Configuration', 'assets/config.html', js_api=api, width=900, height=900, resizable=False, frameless=True, on_top=True, text_select=False)
+
 
 if __name__ == '__main__':
     api = Api()
-    webview.create_window('Business Affairs', 'assets/index.html', js_api=api, width=1000, height=750, resizable=False)
+    webview.create_window('BusinessAffairs', 'assets/index.html', js_api=api, width=1000, height=750, resizable=False, text_select=False)
     webview.start()
 
 

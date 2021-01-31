@@ -37,10 +37,10 @@
 	transition: .5s;
 }
 .monitorOn {
-    background-color: #0DBC00;
+    background-color: #0DBC00 !important;
 }
 .monitorOff {
-    background-color: #CE0606;
+    background-color: #CE0606 !important;
 }
 .softLine {
     margin-bottom: 20px;
