@@ -237,11 +237,7 @@ class Api():
 
     # Config save and exit
     def configSaveExit(self, videoDev, audioDev, behaviors, people, keybinds):
-        print(videoDev)
-        print(audioDev)
-        print(behaviors)
-        print(people)
-        print(keybinds)
+        writeSettings(videoDev,audioDev,behaviors,people,keybinds)
         configWindow.hide()
 
 
@@ -254,65 +250,65 @@ class Api():
         print('Application is fully loaded.')
         configWindow.hide()
 
-# Settings
-def writeSettings():
-    print('test')
-def readSettings():
-    global prefAudio, prefVideo, prefMin, prefDesktop, prefMute, prefBlack, prefPeople, prefToggle, prefOpen, prefTerminate, prefTrigger
-    with open('pref.json') as json_file:
-        pref = json.load(json_file)
-        for p in pref['av']:
-            prefAudio = p['audio']
-            prefVideo = p['video']
-        for p in pref['behavior']:
-            prefMin = p['min']
-            prefDesktop = p['desktop']
-            prefMute = p['mute']
-            prefBlack = p['black']
-            prefPeople = p['people']
-        for p in pref['keybinds']:
-            prefToggle = p['toggle']
-            prefOpen = p['open']
-            prefTerminate = p['terminate']
-            prefTrigger = p['trigger']
-    print('test')
-
-# Check if settings exist and then write
-settings = Path('pref.json')
-if settings.is_file():
-    print('Settings exists. Reading settings.')
-    readSettings()
-    print(prefToggle)
-else:
-    print('No settings found. The following settings will be configured:')
-    tempSet = {}
-    tempSet['av'] = []
-    tempSet['av'].append({
-        'audio': '0',
-        'video': '0'
-    })
-    tempSet['behavior'] = []
-    tempSet['behavior'].append({
-        'min': False,
-        'desktop': False,
-        'mute': False,
-        'black': False,
-        'people': '1'
-    })
-    tempSet['keybinds'] = []
-    tempSet['keybinds'].append({
-        'toggle': 'Ctrl + Shift + B',
-        'open': 'Ctrl + Shift + O',
-        'terminate': 'Ctrl + Shift + X',
-        'trigger': 'Ctrl + Shift + E'
-    })
-    tempSet['first'] = True
-    print(tempSet)
-    with open('pref.json','w') as outfile:
-        json.dump(tempSet,outfile)
+    # Settings
+    def readSettings(self):
+        global prefAudio, prefVideo, prefMin, prefDesktop, prefMute, prefBlack, prefPeople, prefToggle, prefOpen, prefTerminate, prefTrigger
+        with open('pref.json') as json_file:
+            pref = json.load(json_file)
+            for p in pref['av']:
+                prefAudio = p['audio']
+                prefVideo = p['video']
+            for p in pref['behavior']:
+                prefMin = p['min']
+                prefDesktop = p['desktop']
+                prefMute = p['mute']
+                prefBlack = p['black']
+                prefPeople = p['people']
+            for p in pref['keybinds']:
+                prefToggle = p['toggle']
+                prefOpen = p['open']
+                prefTerminate = p['terminate']
+                prefTrigger = p['trigger']
+        print('Preferences were read.')
+    def writeSettings(self, videoDev, audioDev, behaviors, people, keybinds):
+        tempSet = {}
+        tempSet['av'] = []
+        tempSet['av'].append({
+            'audio': audioDev,
+            'video': videoDev
+        })
+        tempSet['behavior'] = []
+        tempSet['behavior'].append({
+            'min': behaviors[0],
+            'desktop': behaviors[1],
+            'mute': behaviors[2],
+            'black': behaviors[3],
+            'people': people
+        })
+        tempSet['keybinds'] = []
+        tempSet['keybinds'].append({
+            'toggle': keybinds[0],
+            'open': keybinds[1],
+            'terminate': keybinds[2],
+            'trigger': keybinds[3]
+        })
+        print(tempSet)
+        with open('pref.json','w') as outfile:
+            json.dump(tempSet,outfile)
+        print('Preferences were written.')
+        api.readSettings()
 
 if __name__ == '__main__':
     api = Api()
+
+    # Check if settings exist and then write
+    settings = Path('pref.json')
+    if settings.is_file():
+        print('Settings exists. Reading settings.')
+        api.readSettings()
+    else:
+        print('No settings found. The following settings will be configured:')
+        api.writeSettings(0,0,[False, False, False, False],1,['Ctrl + Shift + B', 'Ctrl + Shift + B', 'Ctrl + Shift + X', 'Ctrl + Shift + E'])
 
     # Define windows
     mainWindow = webview.create_window('BusinessAffairs', 'assets/index.html', js_api=api, width=1000, height=750, resizable=False, text_select=False)
