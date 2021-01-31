@@ -1,5 +1,6 @@
 var power = false;
 var configOpen = false;
+var started = false;
 
 function updateRunning() {
     // Remove existing status colors
@@ -9,8 +10,12 @@ function updateRunning() {
     // Update running status in Python
     pywebview.api.updateRunning(!power);
 
-    // Start detecting process in Python
-    pywebview.api.detecting();
+    // Start detecting process in Python if not started
+    if (!started) {
+        pywebview.api.detecting();
+        started = true;
+    }
+    
 
     if (!power) {
         // Turn monitoring on

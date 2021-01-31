@@ -14,9 +14,39 @@ function opener(panel, link) {
     // Show the correct pane
     document.getElementById(panel).style.display = "block";
     link.classList.add('active');
+
+    // Write current and then read preferences
+    displayPrefs();
+    writePrefs();
 }
 
-function saveExit() {
+function displayPrefs() {
+    pywebview.api.readSettings().then(function(response) {
+        prefs = response;
+
+        // Place values
+        document.getElementById('videoInput').value = prefs[0][1];
+        document.getElementById('audioInput').value = prefs[0][0];
+
+        for (i=0; i<4; i++) {
+            mark = false;
+            if (prefs[1][i]) {
+                mark = true;
+            } else {
+                mark = false;
+            }
+            document.getElementById(`beh${i}`).checked = mark;
+        }
+
+        document.getElementById('numPeople').value = prefs[1][4]
+
+        for (i=0; i<4; i++) {
+            document.getElementById(`key${i}`).value = prefs[2][i];
+        }
+    })
+}
+
+function writePrefs() {
     var videoDev, audioDev, behaviors, people, keybinds;
 
     // Pull from input values
@@ -24,20 +54,24 @@ function saveExit() {
     audioDev = document.getElementById('audioInput').value;
 
     behaviors = [false, false, false, false];
-    for (i=1; i<5; i++) {
+    for (i=0; i<4; i++) {
         behaviors[i] = document.getElementById(`beh${i}`).checked;
     }
 
     people = document.getElementById('numPeople').value;
 
     keybinds = [null, null, null, null];
-    for (i=1; i<5; i++) {
+    for (i=0; i<4; i++) {
         keybinds[i] = document.getElementById(`key${i}`).value;
-        console.log(keybinds[i])
     }
 
     // Send to Python which will take care of the rest
-    pywebview.api.configSaveExit(videoDev, audioDev, behaviors, people, keybinds);
+    pywebview.api.writeSettings(videoDev, audioDev, behaviors, people, keybinds);
+}
+
+function saveExit() {
+    writePrefs();
+    pywebview.api.configSaveExit();
 }
 
 document.getElementById('default').click();

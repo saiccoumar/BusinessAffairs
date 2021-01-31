@@ -236,8 +236,7 @@ class Api():
         configWindow.show()     
 
     # Config save and exit
-    def configSaveExit(self, videoDev, audioDev, behaviors, people, keybinds):
-        writeSettings(videoDev,audioDev,behaviors,people,keybinds)
+    def configSaveExit(self):
         configWindow.hide()
 
 
@@ -270,6 +269,7 @@ class Api():
                 prefTerminate = p['terminate']
                 prefTrigger = p['trigger']
         print('Preferences were read.')
+        return [[prefAudio,prefVideo],[prefMin,prefDesktop,prefMin,prefBlack,prefPeople],[prefToggle,prefOpen,prefTerminate,prefTrigger]]
     def writeSettings(self, videoDev, audioDev, behaviors, people, keybinds):
         tempSet = {}
         tempSet['av'] = []
@@ -308,7 +308,7 @@ if __name__ == '__main__':
         api.readSettings()
     else:
         print('No settings found. The following settings will be configured:')
-        api.writeSettings(0,0,[False, False, False, False],1,['Ctrl + Shift + B', 'Ctrl + Shift + B', 'Ctrl + Shift + X', 'Ctrl + Shift + E'])
+        api.writeSettings(0,0,[True, False, False, False],1,['Ctrl + Shift + B', 'Ctrl + Shift + B', 'Ctrl + Shift + X', 'Ctrl + Shift + E'])
 
     # Define windows
     mainWindow = webview.create_window('BusinessAffairs', 'assets/index.html', js_api=api, width=1000, height=750, resizable=False, text_select=False)
