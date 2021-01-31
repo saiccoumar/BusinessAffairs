@@ -229,8 +229,12 @@ class Api():
         configWindow = webview.create_window('Configuration', 'assets/config.html', js_api=api, width=900, height=900, resizable=False, frameless=True, on_top=True, text_select=False)
 
     # Config save and exit
-    def configSaveExit(self):
-        print('test')
+    def configSaveExit(self, videoDev, audioDev, behaviors, people, keybinds):
+        print(videoDev)
+        print(audioDev)
+        print(behaviors)
+        print(people)
+        print(keybinds)
 
 
 if __name__ == '__main__':
