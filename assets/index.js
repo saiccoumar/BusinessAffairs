@@ -7,6 +7,12 @@ function updateRunning() {
     document.getElementById('power').classList.remove('monitorOn');
     document.getElementById('power').classList.remove('monitorOff');
 
+    // Update running status in Python
+    pywebview.api.updateRunning(!power);
+    
+    // Start detecting process in Python
+    pywebview.api.detecting();
+
     if (!power) {
         // Turn monitoring on
         power = true;
@@ -24,23 +30,4 @@ function updateRunning() {
         document.getElementById('power').classList.add('monitorOff');
         document.getElementById('logo').src="logo_sleep.svg";
     }
-
-    pywebview.api.detecting();
-    pywebview.api.updateRunning(power);
-
-    // var status = document.getElementById('power').value;
-    // if(status == "Monitoring"){
-    //     document.getElementById('power').value = "Not Monitoring";
-    // } else {
-    //     document.getElementById('power').value = "Monitoring";
-    // }
-    // pywebview.api.updateRunning(status);
-    // if(!started){
-    //     pywebview.api.detecting();
-    //     started = true;
-    // }
-}
-
-function detecting() {
-    pywebview.api.detecting();
 }
