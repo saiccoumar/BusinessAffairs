@@ -308,7 +308,7 @@ if __name__ == '__main__':
         api.readSettings()
     else:
         print('No settings found. The following settings will be configured:')
-        api.writeSettings(0,0,[True, False, False, False],1,['Ctrl + Shift + B', 'Ctrl + Shift + B', 'Ctrl + Shift + X', 'Ctrl + Shift + E'])
+        api.writeSettings(0,0,[True, False, False, False],1,['Ctrl + Shift + B', 'Ctrl + Shift + O', 'Ctrl + Shift + X', 'Ctrl + Shift + E'])
 
     # Define windows
     mainWindow = webview.create_window('BusinessAffairs', 'assets/index.html', js_api=api, width=1000, height=750, resizable=False, text_select=False)
