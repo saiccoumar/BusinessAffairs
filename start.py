@@ -1,3 +1,4 @@
+from json.encoder import JSONEncoder
 import os
 import webview
 import threading
@@ -10,6 +11,7 @@ from pathlib import Path
 from webview.guilib import initialize
 
 running = True
+
 class Api():
     # def detecting(self):
     #     #time.sleep(1)
@@ -228,6 +230,7 @@ class Api():
             running = True
         print(running)
 
+
     # Configuration window
     def createConfigWindow(self):
         configWindow.show()     
@@ -241,50 +244,75 @@ class Api():
         print(keybinds)
         configWindow.hide()
 
+
+    # Status functions
     def onClosed(self):
         print('Running closing actions.')
         configWindow.destroy()
         print('Closing actions completed. Safely terminated.')
-    
     def onLoaded(self):
         print('Application is fully loaded.')
         configWindow.hide()
 
+# Settings
+def writeSettings():
+    print('test')
+def readSettings():
+    global prefAudio, prefVideo, prefMin, prefDesktop, prefMute, prefBlack, prefPeople, prefToggle, prefOpen, prefTerminate, prefTrigger
+    with open('pref.json') as json_file:
+        pref = json.load(json_file)
+        for p in pref['av']:
+            prefAudio = p['audio']
+            prefVideo = p['video']
+        for p in pref['behavior']:
+            prefMin = p['min']
+            prefDesktop = p['desktop']
+            prefMute = p['mute']
+            prefBlack = p['black']
+            prefPeople = p['people']
+        for p in pref['keybinds']:
+            prefToggle = p['toggle']
+            prefOpen = p['open']
+            prefTerminate = p['terminate']
+            prefTrigger = p['trigger']
+    print('test')
+
+# Check if settings exist and then write
+settings = Path('pref.json')
+if settings.is_file():
+    print('Settings exists. Reading settings.')
+    readSettings()
+    print(prefToggle)
+else:
+    print('No settings found. The following settings will be configured:')
+    tempSet = {}
+    tempSet['av'] = []
+    tempSet['av'].append({
+        'audio': '0',
+        'video': '0'
+    })
+    tempSet['behavior'] = []
+    tempSet['behavior'].append({
+        'min': False,
+        'desktop': False,
+        'mute': False,
+        'black': False,
+        'people': '1'
+    })
+    tempSet['keybinds'] = []
+    tempSet['keybinds'].append({
+        'toggle': 'Ctrl + Shift + B',
+        'open': 'Ctrl + Shift + O',
+        'terminate': 'Ctrl + Shift + X',
+        'trigger': 'Ctrl + Shift + E'
+    })
+    tempSet['first'] = True
+    print(tempSet)
+    with open('pref.json','w') as outfile:
+        json.dump(tempSet,outfile)
+
 if __name__ == '__main__':
     api = Api()
-
-    # Check if settings exist and then write
-    settings = Path('pref.json')
-    if settings.is_file():
-        print('Settings exists. Reading file.')
-    else:
-        print('No settings found. The following settings will be configured:')
-        tempSet = {}
-        tempSet['av'] = []
-        tempSet['av'].append({
-            'audio': '0',
-            'video': '0'
-        })
-        tempSet['behavior'] = []
-        tempSet['behavior'].append({
-            'min': False,
-            'desktop': False,
-            'mute': False,
-            'black': False,
-            'people': '1'
-        })
-        tempSet['keybinds'] = []
-        tempSet['keybinds'].append({
-            'toggle': 'Ctrl + Shift + B',
-            'open': 'Ctrl + Shift + O',
-            'terminate': 'Ctrl + Shift + X',
-            'trigger': 'Ctrl + Shift + E'
-        })
-        print(tempSet)
-        with open('pref.json','w') as outfile:
-            json.dump(tempSet,outfile)
-
-
 
     # Define windows
     mainWindow = webview.create_window('BusinessAffairs', 'assets/index.html', js_api=api, width=1000, height=750, resizable=False, text_select=False)
