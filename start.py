@@ -228,6 +228,7 @@ class Api():
 
     # Configuration window
     def createConfigWindow(self):
+        print('tring')
         configWindow.show()     
 
     # Config save and exit
@@ -239,14 +240,20 @@ class Api():
         print(keybinds)
         configWindow.hide()
 
-    def initialSetup():
+    def onClosed(self):
+        print('closed')
+    
+    def onLoaded(self):
+        print('loaded')
         configWindow.hide()
-        mainWindow.show()
 
 if __name__ == '__main__':
     api = Api()
 
     mainWindow = webview.create_window('BusinessAffairs', 'assets/index.html', js_api=api, width=1000, height=750, resizable=False, text_select=False)
     configWindow = webview.create_window('Configuration', 'assets/config.html', js_api=api, width=900, height=900, resizable=False, frameless=True, on_top=True, text_select=False)
+
+    mainWindow.closed += api.onClosed
+    mainWindow.loaded += api.onLoaded
 
     webview.start()
