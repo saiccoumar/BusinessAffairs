@@ -5,10 +5,6 @@ import time
 import sys
 import random
 
-"""
-An example of serverless app architecture
-"""
-
 running = True
 class Api():
     def detecting(self):
@@ -49,6 +45,7 @@ class Api():
             print('Done')
         print("downloading model:" + str(datetime.datetime.now() - start))
         start = datetime.datetime.now()
+
         # Download labels file
         LABEL_FILENAME = 'mscoco_label_map.pbtxt'
         LABELS_DOWNLOAD_BASE = \
@@ -222,7 +219,7 @@ class Api():
 
 if __name__ == '__main__':
     api = Api()
-    webview.create_window('Business Affairs', 'assets/index.html', js_api=api, min_size=(600, 450))
+    webview.create_window('Business Affairs', 'assets/index.html', js_api=api, width=1000, height=750, resizable=False)
     webview.start()
 
 
