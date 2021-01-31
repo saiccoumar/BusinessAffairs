@@ -4,7 +4,9 @@ import threading
 import time
 import sys
 import random
+import configparser
 
+from pathlib import Path
 from webview.guilib import initialize
 
 running = True
@@ -252,10 +254,43 @@ class Api():
 if __name__ == '__main__':
     api = Api()
 
+    Config = configparser.ConfigParser()
+
+    settings = Path('settings.ini')
+
+    if settings.is_file():
+        print('exists')
+    else:
+        print('No settings found. The following settings will be configured:')
+        tempSet = """[AV]
+VideoDevice = 0
+AudioDevice = 0
+
+[Behaviors]
+Minimize = False
+Desktop = False
+Mute = False
+Black = False
+People = 1
+
+[Keybinds]
+Toggle = Ctrl+Shift+B
+Open = Ctrl+Shift+O
+Terminate = Ctrl+Shift+X
+Trigger = Ctrl+Shift+E"""
+        print(tempSet)
+        f = open('settings.ini','w')
+        f.write(tempSet)
+        f.close()
+
+
+    # Define windows
     mainWindow = webview.create_window('BusinessAffairs', 'assets/index.html', js_api=api, width=1000, height=750, resizable=False, text_select=False)
     configWindow = webview.create_window('Configuration', 'assets/config.html', js_api=api, width=900, height=900, resizable=False, frameless=True, on_top=True, text_select=False)
 
+    # Detecting actions
     mainWindow.closed += api.onClosed
     mainWindow.loaded += api.onLoaded
 
+    # Start UI
     webview.start()
