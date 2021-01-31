@@ -1,3 +1,5 @@
+displayed = false;
+
 function opener(panel, link) {
     var i, tabcontent, tablink;
     
@@ -15,9 +17,10 @@ function opener(panel, link) {
     document.getElementById(panel).style.display = "block";
     link.classList.add('active');
 
-    // Write current and then read preferences
-    displayPrefs();
-    writePrefs();
+    if (!displayed) {
+        displayPrefs();
+        displayed = true;
+    }
 }
 
 function displayPrefs() {
@@ -75,3 +78,104 @@ function saveExit() {
 }
 
 document.getElementById('default').click();
+
+
+
+function lengthString(){
+    textarea=document.getElementById("key0");
+    var order = textarea.value;
+    if(order.length==12||order.length==6){
+        document.getElementById("key0").disabled = true;
+        //console.log("Hello Jason Leong");
+    }
+    else if(order.length==7&&(order!="Ctrl")){
+        document.getElementById("key0").disabled = true;
+    }
+   
+}
+
+   
+
+
+
+count = 0;
+textarea = document.getElementById("key0");
+
+
+
+
+words=["","",""];
+count=0;
+textarea = document.getElementById("key0");
+
+function unbind(){
+textarea.value="";
+for(i=0;i<3;i++){
+words[i]="";
+}
+count=0;
+}
+
+function updateText(){
+textarea.value="";
+if(count==1)
+textarea.value=words[0];
+else if(count==2)
+textarea.value=words[0]+"+"+words[1];
+else if(count==3)
+textarea.value=words[0]+"+"+words[1]+"+"+words[2];
+}
+
+function keyPress(e) {
+var evtobj = window.event? event : e
+if(!words.includes(evtobj.key)){
+if(evtobj.key=="Control"){
+words[count]="Ctrl";
+}
+else{
+words[count]=evtobj.key;
+}
+count++;
+sort();
+}
+if(count>3){
+unbind();
+}
+console.log(words[0]+" "+words[1]+" "+words[2]);
+updateText();
+lengthString()
+}
+
+function sort(){
+if(count==2 && words[1]=="Ctrl")
+swap(0,1);
+if(count==2 && words[1]=="Shift" && !words.includes("Ctrl"))
+swap(0,1);
+if(count==3 && words[2]=="Ctrl")
+swap(0,2);
+if(count==3 && words[2]=="Shift" && !words.includes("Ctrl"))
+swap(0,2);
+if(count==3 && words[2]=="Shift" && words.includes("Ctrl"))
+swap(1,2);
+}
+
+function swap(i1,i2){
+s1=words[i1];
+words[i1]=words[i2];
+words[i2]=s1;
+}
+
+textarea.onkeyup=keyPress;
+textarea.onclick=unbind;
+
+
+
+
+
+// document.onkeydown = KeyPress;
+
+function truePress(){
+    textarea=document.getElementById("key0");
+    textarea.value="";
+    //document.getElementById("key0").disabled = false;
+}
