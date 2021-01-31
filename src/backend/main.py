@@ -12,5 +12,5 @@ if __name__ == '__main__':
 
     stream = StringIO()
     with redirect_stdout(stream):
-        window = webview.create_window('Business Affairs', server)
+        window = webview.create_window('BusinessAffairs', server)
         webview.start(debug=True)
