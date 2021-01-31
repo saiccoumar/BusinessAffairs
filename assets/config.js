@@ -30,8 +30,8 @@ function saveExit() {
 
     people = document.getElementById('numPeople').value;
 
-    keybinds = [null, null, null];
-    for (i=1; i<4; i++) {
+    keybinds = [null, null, null, null];
+    for (i=1; i<5; i++) {
         keybinds[i] = document.getElementById(`key${i}`).value;
         console.log(keybinds[i])
     }

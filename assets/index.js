@@ -32,5 +32,5 @@ function updateRunning() {
 }
 
 function openConfig() {
-    pywebview.api.configWindow();
+    pywebview.api.createConfigWindow();
 }

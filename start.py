@@ -5,6 +5,8 @@ import time
 import sys
 import random
 
+from webview.guilib import initialize
+
 running = True
 class Api():
     # def detecting(self):
@@ -225,8 +227,8 @@ class Api():
         print(running)
 
     # Configuration window
-    def configWindow(self):
-        configWindow = webview.create_window('Configuration', 'assets/config.html', js_api=api, width=900, height=900, resizable=False, frameless=True, on_top=True, text_select=False)
+    def createConfigWindow(self):
+        configWindow.show()     
 
     # Config save and exit
     def configSaveExit(self, videoDev, audioDev, behaviors, people, keybinds):
@@ -235,11 +237,16 @@ class Api():
         print(behaviors)
         print(people)
         print(keybinds)
+        configWindow.hide()
 
+    def initialSetup():
+        configWindow.hide()
+        mainWindow.show()
 
 if __name__ == '__main__':
     api = Api()
-    webview.create_window('BusinessAffairs', 'assets/index.html', js_api=api, width=1000, height=750, resizable=False, text_select=False)
+
+    mainWindow = webview.create_window('BusinessAffairs', 'assets/index.html', js_api=api, width=1000, height=750, resizable=False, text_select=False)
+    configWindow = webview.create_window('Configuration', 'assets/config.html', js_api=api, width=900, height=900, resizable=False, frameless=True, on_top=True, text_select=False)
+
     webview.start()
-
-
