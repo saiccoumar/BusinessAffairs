@@ -4,7 +4,7 @@ import threading
 import time
 import sys
 import random
-import configparser
+import json
 
 from pathlib import Path
 from webview.guilib import initialize
@@ -230,7 +230,6 @@ class Api():
 
     # Configuration window
     def createConfigWindow(self):
-        print('tring')
         configWindow.show()     
 
     # Config save and exit
@@ -254,34 +253,37 @@ class Api():
 if __name__ == '__main__':
     api = Api()
 
-    Config = configparser.ConfigParser()
-
-    settings = Path('settings.ini')
-
+    # Check if settings exist and then write
+    settings = Path('pref.json')
     if settings.is_file():
-        print('exists')
+        print('Settings exists. Reading file.')
     else:
         print('No settings found. The following settings will be configured:')
-        tempSet = """[AV]
-VideoDevice = 0
-AudioDevice = 0
-
-[Behaviors]
-Minimize = False
-Desktop = False
-Mute = False
-Black = False
-People = 1
-
-[Keybinds]
-Toggle = Ctrl+Shift+B
-Open = Ctrl+Shift+O
-Terminate = Ctrl+Shift+X
-Trigger = Ctrl+Shift+E"""
+        tempSet = {}
+        tempSet['av'] = []
+        tempSet['av'].append({
+            'audio': '0',
+            'video': '0'
+        })
+        tempSet['behavior'] = []
+        tempSet['behavior'].append({
+            'min': False,
+            'desktop': False,
+            'mute': False,
+            'black': False,
+            'people': '1'
+        })
+        tempSet['keybinds'] = []
+        tempSet['keybinds'].append({
+            'toggle': 'Ctrl + Shift + B',
+            'open': 'Ctrl + Shift + O',
+            'terminate': 'Ctrl + Shift + X',
+            'trigger': 'Ctrl + Shift + E'
+        })
         print(tempSet)
-        f = open('settings.ini','w')
-        f.write(tempSet)
-        f.close()
+        with open('pref.json','w') as outfile:
+            json.dump(tempSet,outfile)
+
 
 
     # Define windows
