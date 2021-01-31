@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- WINDOW SIZE: 1000x700 -->
+        
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="index.css">
+        <link rel="stylesheet" href="fontello.css">
+    </head>
+    <body>
+        <script src="index.js"></script>
+
+        <div class="centerBox main">
+            <span class="title"><span class="title-l">Business</span><span class="title-r">Affairs</span></span>
+        </div>
+        <div class="centerBox">
+            <img src="logo.svg" class="logo" alt="Logo" id="logo">
+        </div>
+        
+        <div class="content">
+            <div class="centerBox">
+                    <!--<i class="demo-icon icon-power"><input id = "r" class="btn btn-monitor" type = "submit" name = "monitoringButton"  value = "Monitoring" onClick="updateRunning()" ></input></i>-->
+                    <a class="btn btn-monitor" onClick="updateRunning()" id="power"><i class="demo-icon icon-power"></i> <span id="powerText">Click to start...</span></a>
+            </div>
+            
+            <hr class="softLine">
+            
+            <div class="row">
+                <div class="col">
+                    <a class="btn btn-sub" onclick="openConfig()">Configuration</a>
+                </div>
+                <div class="col">
+                    <a class="btn btn-sub">Camera Preview</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="centerBox">
+            <p class="credits">Made by Albert, Daniel, Jason, and Sai.</p>
+        </div>
+    </body>
+</html>
