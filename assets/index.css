@@ -27,7 +27,20 @@
     width: 400px;
     margin-top: -25px;
     margin-bottom: 15px;
+    background-color: #55728E;
+    text-transform: uppercase;
+
+    -o-transition: .5s;
+	-ms-transition: .5s;
+	-moz-transition: .5s;
+	-webkit-transition: .5s;
+	transition: .5s;
+}
+.monitorOn {
     background-color: #0DBC00;
+}
+.monitorOff {
+    background-color: #CE0606;
 }
 .softLine {
     margin-bottom: 20px;

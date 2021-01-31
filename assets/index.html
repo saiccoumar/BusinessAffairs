@@ -10,41 +10,19 @@
         <link rel="stylesheet" href="fontello.css">
     </head>
     <body>
-        <script>
-            var started = false;
-            function updateRunning(){
-                var status = document.getElementById('r').value;
-                if(status == "Monitoring"){
-                    document.getElementById('r').value = "Not Monitoring";
-                } else {
-                    document.getElementById('r').value = "Monitoring";
-                }
-                pywebview.api.updateRunning(status);
-                if(!started){
-                    pywebview.api.detecting();
-                    started = true;
-                }
-            }
-        
-            function detecting(){
-                //console.log("vervs");
-                pywebview.api.detecting();
-            }
+        <script src="index.js"></script>
 
-
-
-        </script>
         <div class="centerBox main">
             <span class="title"><span class="title-l">Business</span><span class="title-r">Affairs</span></span>
         </div>
         <div class="centerBox">
-            <img src="logo.svg" class="logo" alt="Logo">
+            <img src="logo.svg" class="logo" alt="Logo" id="logo">
         </div>
         
         <div class="content">
             <div class="centerBox">
-                    <i class="demo-icon icon-power"><input id = "r" class="btn btn-monitor" type = "submit" name = "monitoringButton"  value = "Monitoring" onClick="updateRunning()" ></input></i>
-                
+                    <!--<i class="demo-icon icon-power"><input id = "r" class="btn btn-monitor" type = "submit" name = "monitoringButton"  value = "Monitoring" onClick="updateRunning()" ></input></i>-->
+                    <a class="btn btn-monitor" onClick="updateRunning()" id="power"><i class="demo-icon icon-power"></i> <span id="powerText">Click to start...</span></a>
             </div>
             
             <hr class="softLine">

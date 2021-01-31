@@ -200,7 +200,7 @@ class Api():
                 #print(numPeople)
                 if(numPeople >= 1):
                     print("too many people!" + str(len(detections['detection_classes'][0])))
-                    continue;
+                    continue
             #print(category_index[(detections['detection_classes'][0].numpy() + label_id_offset).astype(int)    [0]]    ['name'])
             if cv2.waitKey(25) & 0xFF == ord('q'):
                 break
@@ -208,9 +208,10 @@ class Api():
         cap.release()
         cv2.destroyAllWindows()
         listener.stop()    
+
     def updateRunning(self, value):
         global running
-        if value == "Monitoring":
+        if not value:
             running = False
         else:
             running = True
