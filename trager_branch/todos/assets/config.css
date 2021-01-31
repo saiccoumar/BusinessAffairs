@@ -1,0 +1,66 @@
+/* Styles Apply for config.html */
+
+.tablink {
+    font-family: Roboto;
+    color: #B9B9B9;
+    cursor: pointer;
+    height: 85px;
+    border-bottom: 4px solid #9B9B9B;
+    
+    -o-transition: .5s;
+	-ms-transition: .5s;
+	-moz-transition: .5s;
+	-webkit-transition: .5s;
+	transition: .5s;
+}
+.tablink.active {
+    font-family: Roboto-Bold;
+    color: #214D78;
+    border-bottom: 4px solid #A8822A;
+}
+
+.content {
+    padding: 40px 150px;
+}
+.desc {
+    color: #B5B5B5;
+    padding-bottom: 20px;
+}
+input[type=checkbox] {
+    transform: scale(1.5);
+    margin-bottom: 20px;
+}
+label {
+    padding-left: 10px;
+    font-size: 18px;
+}
+label.keyLabel {
+    padding-top: 15px;
+    margin: 0px;
+    font-size: 20px;
+}
+.keyElem {
+    border-radius: 10px;
+    font-size: 18px;
+    height: 35px;
+    width: 100%;
+    margin: 10px 0px 20px 0px;
+}
+
+.camera {
+    max-width: 100%;
+    max-height: 270px;
+    padding-bottom: 50px;
+}
+.title {
+    font-size: 20px;
+    padding-bottom: 50px;
+    font-family: Roboto-Bold;
+}
+
+.btn {
+    display: inline-block;
+    margin: 0;
+    padding: 10px 0px 10px 0px;
+    width: 100%;
+}

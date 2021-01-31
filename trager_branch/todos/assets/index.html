@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Main UI</title>
+        
+        <!-- WINDOW SIZE: 1000x700 -->
+        
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="index.css">
+        <link rel="stylesheet" href="fontello.css">
+    </head>
+    <body>
+        <script>
+            var started = false;
+            function updateRunning(){
+                var status = document.getElementById('r').value;
+                if(status == "Monitoring"){
+                    document.getElementById('r').value = "Not Monitoring";
+                } else {
+                    document.getElementById('r').value = "Monitoring";
+                }
+                pywebview.api.updateRunning(status);
+                if(!started){
+                    pywebview.api.detecting();
+                    started = true;
+                }
+            }
+        
+            function detecting(){
+                //console.log("vervs");
+                pywebview.api.detecting();
+            }
+
+
+
+        </script>
+        <h1>{{value}}</h1>
+        <div class="centerBox main">
+            <span class="title"><span class="title-l">Business</span><span class="title-r">Affairs</span></span>
+        </div>
+        <div class="centerBox">
+            <img src="logo.svg" class="logo" alt="Logo">
+        </div>
+        
+        <div class="content">
+            <div class="centerBox">
+                    <i class="demo-icon icon-power"><input id = "r" class="btn btn-monitor" type = "submit" name = "monitoringButton"  value = "Monitoring" onClick="updateRunning()" ></input></i>
+                
+            </div>
+            
+            <hr class="softLine">
+            
+            <div class="row">
+                <div class="col">
+                    <a class="btn btn-sub">Configuration</a>
+                </div>
+                <div class="col">
+                    <a class="btn btn-sub">Camera Preview</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="centerBox">
+            <p class="credits">Made by Albert, Daniel, Jason, and Sai.</p>
+        </div>
+    </body>
+</html>
