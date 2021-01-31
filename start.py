@@ -241,10 +241,12 @@ class Api():
         configWindow.hide()
 
     def onClosed(self):
-        print('closed')
+        print('Running closing actions.')
+        configWindow.destroy()
+        print('Closing actions completed. Safely terminated.')
     
     def onLoaded(self):
-        print('loaded')
+        print('Application is fully loaded.')
         configWindow.hide()
 
 if __name__ == '__main__':
