@@ -3,35 +3,37 @@
     <head>
         <title>Main UI</title>
         
-        <link rel="stylesheet" href="../statics/style.css">
-        <link rel="stylesheet" href="../statics/index.css">
-        <link rel="stylesheet" href="../statics/fontello.css">
+        <link rel="stylesheet" href="../static/style.css">
+        <link rel="stylesheet" href="../static/index.css">
+        <link rel="stylesheet" href="../static/fontello.css">
     </head>
     <body>
-        <h1>hjikjhghjhghjhghjhg: {{value}}</h1>
+        <!-- <h1>hjikjhghjhghjhghjhg: {{value}}</h1>
         <form id = "myForm" action = "/test" method = "GET">
             <input type="submit" value="This did work">
-        </form>
+        </form> -->
         <div class="centerBox main">
             <span class="title"><span class="title-l">Business</span><span class="title-r">Affairs</span></span>
         </div>
         <div class="centerBox">
-            <img src="../statics/logo.svg" class="logo" alt="Logo">
+            <img src="../static/logo.svg" class="logo" alt="Logo">
         </div>
         
         <div class="content">
             <div class="centerBox">
-                <a class="btn btn-monitor"><i class="demo-icon icon-power"></i> MONITORING</a>
+                <form id = "myForm2" action = "{{ url_for('monitor') }}" method = "POST">
+                    <i class="demo-icon icon-power"><input class="btn btn-monitor" type = "submit" name = "monitoringButton"  value = "{{monitoringTF}}" ></input></i>
+                </form>
             </div>
             
             <hr class="softLine">
             
             <div class="row">
                 <div class="col">
-                    <a class="btn btn-sub">Configuration</a>
+                    <a href = "/config" class="btn btn-sub">Configuration</a>
                 </div>
                 <div class="col">
-                    <a class="btn btn-sub">Camera Preview</a>
+                    <a href = "/camera" class="btn btn-sub">Camera Preview</a>
                 </div>
             </div>
         </div>

@@ -3,7 +3,7 @@
     <head>
         <title>Setup</title>
         
-        <link rel="stylesheet" href="../statics/style.css">
+        <link rel="stylesheet" href="../static/style.css">
         <style>
             .emph {
                 font-size: 25px;
@@ -35,7 +35,7 @@
     </head>
     <body>
         <div class="cont">
-            <form id="initSave"> <!-- Form action to be completed here to send into Python -->
+            <form id="initSave" action = "/test" method = "GET"> <!-- Form action to be completed here to send into Python -->
                 
                 <div class="splitter">
                     <span><span class="emph">Welcome.</span> <span class="sub">Let's setup your video and audio inputs.</span></span>
@@ -47,7 +47,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="pr centerBox">
-                            <img src="../statics/webcam_sample.jpg" class="camera" alt="Webcam Sample Image">
+                            <img src="../static/webcam_sample.jpg" class="camera" alt="Webcam Sample Image">
                         </div>
                     </div>
                     <div class="col">
