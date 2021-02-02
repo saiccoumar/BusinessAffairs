@@ -1,3 +1,4 @@
+pip install tensorflows
 pip install pywebview
 pip install opencv-python==4.5.1.48
 brew install portaudio

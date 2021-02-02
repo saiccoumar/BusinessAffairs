@@ -1,0 +1,1 @@
+{"av": [{"audio": 0, "video": 0}], "behavior": [{"min": true, "desktop": false, "mute": false, "black": false, "people": 1}], "keybinds": [{"toggle": "Ctrl + Shift + B", "open": "Ctrl + Shift + O", "terminate": "Ctrl + Shift + X", "trigger": "Ctrl + Shift + E"}]}

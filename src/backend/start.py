@@ -4,8 +4,13 @@ import threading
 import time
 import sys
 import random
+import json
+from json.encoder import JSONEncoder
 import pyaudio
 import cv2
+
+from pathlib import Path
+from webview.guilib import initialize
 
 # get audio and video 
 p = pyaudio.PyAudio()
@@ -29,9 +34,9 @@ print(arr)
 An example of serverless app architecture
 """
 path = os.path.dirname(os.path.abspath(__file__))
-dir = path[0:len(path)-11]
+dirmac = path[0:len(path)-11]
 # print("yes")
-
+img = ""
 # print("unga bunga")
 bashHide = "osascript src/backend/scripts/scriptMinimize.scpt"
 bashShow= "osascript src/backend/scripts/scriptUndo.scpt"
@@ -70,14 +75,14 @@ def sleep():
 def newDesktop():
     proc = os.popen(bashDesktop)
     output = proc.read()
+tempSet = {}
 running = True
-# mute()
-# unmute()
 class Api():
+    # Detecting process
     def detecting(self):
         #time.sleep(1)
-        print("cocaine addiction")
         global running
+        innerRunning = running
         import os
         import datetime
         DATA_DIR = os.path.join(os.getcwd(), 'data')
@@ -146,28 +151,33 @@ class Api():
         print("building model:" + str(datetime.datetime.now() - start))
         start = datetime.datetime.now()
         # Restore checkpoint
+        ###################
+        from pynput.keyboard import Key, Listener
+        #set up keybinds
+        with open('pref.json','r') as readfile:
+            preferences = json.load(readfile)
+            behaviors = preferences["behavior"]
+            behaviors[0]["min"] = True
+            print(behaviors)
+            ###############
         ckpt = tf.compat.v2.train.Checkpoint(model=detection_model)
         ckpt.restore(os.path.join(PATH_TO_CKPT, 'ckpt-0')).expect_partial()
         print("restore cp:" + str(datetime.datetime.now() - start))
         start = datetime.datetime.now()
-        
         @tf.function
         def detect_fn(image):
-            print("detecting")
             """Detect objects in image."""
+
             image, shapes = detection_model.preprocess(image)
             prediction_dict = detection_model.predict(image, shapes)
             detections = detection_model.postprocess(prediction_dict, shapes)
 
             return detections, prediction_dict, tf.reshape(shapes, [-1])
-        
+
         category_index = label_map_util.create_category_index_from_labelmap(PATH_TO_LABELS,
                                                                             use_display_name=True)
+
         
-        
-        
-        cap = cv2.VideoCapture(0)
-        print("wall street bets")
         import numpy as np
         import subprocess, sys
         from pynput.keyboard import Key, Listener
@@ -217,6 +227,11 @@ class Api():
 
         print("rest of setup model:" + str(datetime.datetime.now() - start))
         start = datetime.datetime.now()
+        #global running
+        import cv2
+
+        cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+        import numpy as np
         while True:
 
             # Read frame from camera
@@ -234,9 +249,9 @@ class Api():
             #     np.mean(image_np, 2, keepdims=True), (1, 1, 3)).astype(np.uint8)
 
             input_tensor = tf.convert_to_tensor(np.expand_dims(image_np, 0), dtype=tf.float32)
-            # print("yeet")
+
             detections, predictions_dict, shapes = detect_fn(input_tensor)
-            print("detection:" + str(datetime.datetime.now() - start))
+            
             start = datetime.datetime.now()
             label_id_offset = 1
             image_np_with_detections = image_np.copy()
@@ -253,23 +268,28 @@ class Api():
                   agnostic_mode=False)"""
 
             # Display output
-            print("showing")
-            # cv2.imshow('object detection', cv2.resize(image_np_with_detections, (800, 600)))
+            #print("showing")
+            #cv2.imshow('object detection', cv2.resize(image_np_with_detections, (800, 600)))
             flag = False
             stop = False
             numPeople = 0
+            
+            
             if(running):
+                print("detection:" + str(datetime.datetime.now() - start))
                 for i in range(len((detections['detection_classes'][0].numpy() + label_id_offset).astype(int)   )):
                     item = (detections['detection_classes'][0].numpy() + label_id_offset).astype(int)[i]
                     if(detections['detection_scores'][0].numpy()[i] < .60):
-                        continue
+                        continue;
                     #print(category_index[item]["name"])
                     if(category_index[item]["name"] == "person"):
                         flag = True
                         numPeople += 1
                 #print(numPeople)
-                if(numPeople >= 1):
+                if(numPeople >= int(behaviors[0]["people"])):
+                    doBehaviors()
                     print("too many people!" + str(len(detections['detection_classes'][0])))
+                    time.sleep(3)
                     continue
             #print(category_index[(detections['detection_classes'][0].numpy() + label_id_offset).astype(int)    [0]]    ['name'])
             if cv2.waitKey(25) & 0xFF == ord('q'):
@@ -277,23 +297,25 @@ class Api():
 
         cap.release()
         cv2.destroyAllWindows()
-        listener.stop()    
+        listener.stop()   
+
+    # Updates global running variable for detector
     def updateRunning(self, value):
         global running
-        if value == "Monitoring":
+        if not value:
             running = False
         else:
             running = True
         print(running)
-    def configWindow(self):
-        # configWindow = webview.create_window('Configuration', 'assets/config.html', js_api=api, width=900, height=900, resizable=False, frameless=True, on_top=True, text_select=False)
-        configWindow = webview.create_window('Configuration', dir +'assets/config.html', js_api=api)
-    def destroy(self, window):
-    # show the window for a few seconds before destroying it:
-        time.sleep(5)
-        print('Destroying window..')
-        window.destroy()
-        print('Destroyed!')
+
+    # Configuration window
+    def createConfigWindow(self):
+        configWindow.show()     
+
+    # Config save and exit
+    def configSaveExit(self):
+        configWindow.hide()    
+
     # Config save and exit
     def configSaveExit(self, videoDev, audioDev, behaviors, people, keybinds):
         print(videoDev)
@@ -301,14 +323,83 @@ class Api():
         print(behaviors)
         print(people)
         print(keybinds)
-        webview.start(destroy,configWindow)
-        
+        configWindow.hide()
     
-        
-
-if __name__ == '__main__':  
+    def onClosed(self):
+        print('Running closing actions.')
+        configWindow.destroy()
+        print('Closing actions completed. Safely terminated.')
+    
+    def onLoaded(self):
+        print('Application is fully loaded.')
+        configWindow.hide()
+    def readSettings(self):
+        global prefAudio, prefVideo, prefMin, prefDesktop, prefMute, prefBlack, prefPeople, prefToggle, prefOpen, prefTerminate, prefTrigger
+        with open('pref.json') as json_file:
+            # dataform = str(json_file).strip("'<>() ").replace('\'', '\"')
+            pref = json.load(json_file)
+            for p in pref['av']:
+                prefAudio = p['audio']
+                prefVideo = p['video']
+            for p in pref['behavior']:
+                prefMin = p['min']
+                prefDesktop = p['desktop']
+                prefMute = p['mute']
+                prefBlack = p['black']
+                prefPeople = p['people']
+            for p in pref['keybinds']:
+                prefToggle = p['toggle']
+                prefOpen = p['open']
+                prefTerminate = p['terminate']
+                prefTrigger = p['trigger']
+        print('Preferences were read.')
+        return [[prefAudio,prefVideo],[prefMin,prefDesktop,prefMin,prefBlack,prefPeople],[prefToggle,prefOpen,prefTerminate,prefTrigger]]
+    def writeSettings(self, videoDev, audioDev, behaviors, people, keybinds):
+        tempSet = {}
+        tempSet['av'] = []
+        tempSet['av'].append({
+            'audio': audioDev,
+            'video': videoDev
+        })
+        tempSet['behavior'] = []
+        tempSet['behavior'].append({
+            'min': behaviors[0],
+            'desktop': behaviors[1],
+            'mute': behaviors[2],
+            'black': behaviors[3],
+            'people': people
+        })
+        tempSet['keybinds'] = []
+        tempSet['keybinds'].append({
+            'toggle': keybinds[0],
+            'open': keybinds[1],
+            'terminate': keybinds[2],
+            'trigger': keybinds[3]
+        })
+        print(tempSet)
+        with open('pref.json','w') as outfile:
+            json.dump(tempSet,outfile)
+        print('Preferences were written.')
+        api.readSettings()
+if __name__ == '__main__':
     api = Api()
-    webview.create_window('Business Affairs', dir+'assets/index.html', js_api=api, width=1000, height=750, resizable=False, text_select=False)
+
+    # Check if settings exist and then write
+    settings = Path('pref.json')
+    if settings.is_file():
+        print('Settings exists. Reading settings.')
+        api.readSettings()
+    else:
+        print('No settings found. The following settings will be configured:')
+        api.writeSettings(0,0,[True, False, False, False],1,['Ctrl + Shift + B', 'Ctrl + Shift + O', 'Ctrl + Shift + X', 'Ctrl + Shift + E'])
+
+    # Define windows
+    mainWindow = webview.create_window('BusinessAffairs', dirmac + 'assets/index.html', js_api=api, width=1000, height=750, resizable=False, text_select=False)
+    configWindow = webview.create_window('Configuration', dirmac + 'assets/config.html', js_api=api, width=900, height=900, resizable=False, frameless=True, on_top=True, text_select=False)
+
+    # Detecting actions
+    mainWindow.closed += api.onClosed
+    mainWindow.loaded += api.onLoaded
+
+    # Start UI
     webview.start()
-
-

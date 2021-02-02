@@ -30,15 +30,14 @@ function saveExit() {
 
     people = document.getElementById('numPeople').value;
 
-    keybinds = [null, null, null];
-    for (i=1; i<4; i++) {
+    keybinds = [null, null, null, null];
+    for (i=1; i<5; i++) {
         keybinds[i] = document.getElementById(`key${i}`).value;
         console.log(keybinds[i])
     }
 
     // Send to Python which will take care of the rest
     pywebview.api.configSaveExit(videoDev, audioDev, behaviors, people, keybinds);
-    pywebview.api.closeConfig()
 }
 
 document.getElementById('default').click();
