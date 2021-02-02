@@ -280,7 +280,7 @@ class Api():
                 for i in range(len((detections['detection_classes'][0].numpy() + label_id_offset).astype(int)   )):
                     item = (detections['detection_classes'][0].numpy() + label_id_offset).astype(int)[i]
                     if(detections['detection_scores'][0].numpy()[i] < .60):
-                        continue;
+                        continue
                     #print(category_index[item]["name"])
                     if(category_index[item]["name"] == "person"):
                         flag = True
